@@ -4,9 +4,15 @@
     {
         public static string[] ReadFile(string path)
         {
-            string[] lines = File.ReadAllLines(path);
+            try
+            {
+                string[] lines = File.ReadAllLines(path);
 
-            return lines;
+                return lines;
+            }catch (Exception)
+            {
+                throw new Exception($"Could not read file {path}");
+            }
         }
     }
 }
