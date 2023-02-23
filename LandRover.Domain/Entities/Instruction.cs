@@ -1,6 +1,6 @@
 ﻿using LandRover.Domain.Enums;
 
-namespace LandRover.Domain.RoverHandler
+namespace LandRover.Domain.Entities
 {
     public class Instruction
     {
