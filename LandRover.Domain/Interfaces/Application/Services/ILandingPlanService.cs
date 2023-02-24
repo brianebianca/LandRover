@@ -2,8 +2,8 @@
 
 namespace LandRover.Domain.Interfaces.Application.Services
 {
-    public interface IRoverService
+    public interface ILandingPlanService
     {
-        Rover Navigate(Rover rover, List<Instruction> instructions);
+        LandingPlans GetLandingPlans(string path);
     }
 }

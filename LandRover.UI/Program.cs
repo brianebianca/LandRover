@@ -13,7 +13,9 @@
 //    Console.WriteLine(line);
 
 
+using LandRover.Application.Application;
 using LandRover.Application.Services;
+using LandRover.Domain.Interfaces.Application.Application;
 using LandRover.Domain.Interfaces.Application.Services;
 using LandRover.Domain.Interfaces.Infra.Repository;
 using LandRover.Infra.Repository.Repositories;
@@ -29,18 +31,20 @@ namespace LandRover.UI
             var serviceProvider = new ServiceCollection()
                 .AddScoped<ILandingPlanRepository, LandingPlanRepository>()
                 .AddScoped<IRoverService, RoverService>()
+                .AddScoped<ILandingPlanService, LandingPlanService>()
+                .AddScoped<IRoverApplication, RoverApplication>()
                 .BuildServiceProvider();
 
-            var roverService = serviceProvider.GetRequiredService<IRoverService>();
+            var _roverApplication = serviceProvider.GetRequiredService<IRoverApplication>();
 
-            var plans = roverService.GetLandingPlans("C:\\Users\\JessicaAbreu\\Downloads\\teste.txt");
-            var plan = plans.landingPlans.First();
-            var result = roverService.Navigate(plan.Rover, plan.instructions);
-            Console.WriteLine(result.ToString());
+            string path = Path.GetFullPath(args[0]);
+            Console.WriteLine("trying path: " + path);
 
-            var plan2 = plans.landingPlans.Last();
-            var result2 = roverService.Navigate(plan2.Rover, plan2.instructions);
-            Console.WriteLine(result2.ToString());
+            var rovers = _roverApplication.NavigateAllRovers(path);
+            foreach (var rover in rovers)
+            {
+                Console.WriteLine(rover.ToString());
+            }
         }
     }
 }

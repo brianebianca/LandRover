@@ -2,19 +2,15 @@
 using LandRover.Application.Services;
 using LandRover.Domain.Entities;
 using LandRover.Domain.Enums;
-using LandRover.Domain.Interfaces.Infra.Repository;
-using Moq;
 
 namespace LandRover.UnitTests.Application.Service
 {
     public class RoverServiceTests
     {
         private readonly RoverService _roverService;
-        readonly Mock<ILandingPlanRepository> _landingPlanRepositoryMock;
         public RoverServiceTests() 
         {
-            _landingPlanRepositoryMock = new Mock<ILandingPlanRepository>();
-            _roverService = new RoverService(_landingPlanRepositoryMock.Object);
+            _roverService = new RoverService();
         }
 
         [Fact]
