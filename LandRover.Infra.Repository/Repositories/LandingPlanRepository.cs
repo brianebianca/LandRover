@@ -1,12 +1,13 @@
 ﻿using LandRover.Core.Utils;
 using LandRover.Domain.Entities;
 using LandRover.Domain.Enums;
+using LandRover.Domain.Interfaces.Infra.Repository;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("LandRover.UnitTests")]
 namespace LandRover.Infra.Repository.Repositories
 {
-    public class LandingPlanRepository
+    public class LandingPlanRepository : ILandingPlanRepository
     {
         public LandingPlans GetLandingPlans(string path)
         {
@@ -81,7 +82,7 @@ namespace LandRover.Infra.Repository.Repositories
                 var instructionList = new List<Instruction>();
                 foreach (char c in str)
                 {
-                    instructionList.Add(new Instruction(c));
+                    instructionList.Add(new Instruction(c.ToString()));
                 }
                 return instructionList;
             }

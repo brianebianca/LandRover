@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LandRover.Domain\LandRover.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

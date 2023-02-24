@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LandRover.Application\LandRover.Application.csproj" />
     <ProjectReference Include="..\LandRover.Domain\LandRover.Domain.csproj" />
     <ProjectReference Include="..\LandRover.Infra.Repository\LandRover.Infra.Repository.csproj" />
   </ItemGroup>
