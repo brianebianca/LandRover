@@ -54,5 +54,10 @@ namespace LandRover.Domain.Entities
                 }
             }
         }
+
+        public override string ToString()
+        {
+            return $"{coordinate.x} {coordinate.y} {cardinalPoint.ToString()}";
+        }
     }
 }

@@ -1,23 +1,37 @@
 ﻿using LandRover.Domain.Entities;
 using LandRover.Domain.Enums;
+using LandRover.Domain.Interfaces.Application.Services;
+using LandRover.Domain.Interfaces.Infra.Repository;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("LandRover.UnitTests")]
 namespace LandRover.Application.Services
 {
-    public class RoverService
+    public class RoverService : IRoverService
     {
-        public Rover Navigate(Rover rover, List<Instruction> instructions, Plateau plateau)
+        private readonly ILandingPlanRepository _landingPlanRepository;
+
+        public RoverService(ILandingPlanRepository landingPlanRepository)
+        {
+            _landingPlanRepository = landingPlanRepository;
+        }
+
+        public LandingPlans GetLandingPlans(string path)
+        {
+            return _landingPlanRepository.GetLandingPlans(path);
+        }
+
+        public Rover Navigate(Rover rover, List<Instruction> instructions)
         {
             foreach (var instruction in instructions)
             {
-                rover = NavigateByInstruction(rover, instruction, plateau);
+                rover = NavigateByInstruction(rover, instruction);
             }
 
             return rover;
         }
 
-        internal Rover NavigateByInstruction(Rover rover, Instruction instruction, Plateau plateau) 
+        internal Rover NavigateByInstruction(Rover rover, Instruction instruction) 
         { 
             if(instruction.instructionType == InstructionType.spin)
             {

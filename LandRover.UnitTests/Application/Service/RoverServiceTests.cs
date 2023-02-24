@@ -2,15 +2,19 @@
 using LandRover.Application.Services;
 using LandRover.Domain.Entities;
 using LandRover.Domain.Enums;
+using LandRover.Domain.Interfaces.Infra.Repository;
+using Moq;
 
 namespace LandRover.UnitTests.Application.Service
 {
     public class RoverServiceTests
     {
-        private RoverService _roverService;
+        private readonly RoverService _roverService;
+        readonly Mock<ILandingPlanRepository> _landingPlanRepositoryMock;
         public RoverServiceTests() 
         {
-            _roverService = new RoverService();
+            _landingPlanRepositoryMock = new Mock<ILandingPlanRepository>();
+            _roverService = new RoverService(_landingPlanRepositoryMock.Object);
         }
 
         [Fact]
@@ -36,9 +40,7 @@ namespace LandRover.UnitTests.Application.Service
                 new Instruction("M")
             };
 
-            var plateau = new Plateau();
-
-            var roverResult = _roverService.Navigate(rover, instructions, plateau);
+            var roverResult = _roverService.Navigate(rover, instructions);
             roverResult.coordinate.x.Should().Be(5);
             roverResult.coordinate.y.Should().Be(1);
             roverResult.cardinalPoint.Should().Be(CardinalPoint.E);
@@ -54,9 +56,8 @@ namespace LandRover.UnitTests.Application.Service
                 cardinalPoint = CardinalPoint.N
             };
             var instruction = new Instruction("R");
-            var plateau = new Plateau();
 
-            var roverResult = _roverService.NavigateByInstruction(rover, instruction, plateau);
+            var roverResult = _roverService.NavigateByInstruction(rover, instruction);
             roverResult.coordinate.x.Should().Be(1);
             roverResult.coordinate.y.Should().Be(2);
             roverResult.cardinalPoint.Should().Be(CardinalPoint.E);

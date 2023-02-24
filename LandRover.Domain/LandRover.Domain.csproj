@@ -12,8 +12,4 @@
     <None Remove="RoverHandler\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Interfaces\Application\Services\" />
-  </ItemGroup>
-
 </Project>

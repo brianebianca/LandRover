@@ -6,17 +6,17 @@ namespace LandRover.UnitTests.Infra.Repository
 {
     public class LandingPlanRepositoryTests
     {
-        private LandingPlanRepository landingPlanRepository;
+        private readonly LandingPlanRepository _landingPlanRepository;
         public LandingPlanRepositoryTests()
         {
-            landingPlanRepository = new LandingPlanRepository();
+            _landingPlanRepository = new LandingPlanRepository();
         }
 
         [Fact]
         public void LoadPlateau_ShouldCreatePlateauObjectForAGivenStringList()
         {
             var stringList = new string[] { "27", "89"};
-            var plateau = landingPlanRepository.LoadPlateau(stringList);
+            var plateau = _landingPlanRepository.LoadPlateau(stringList);
 
             plateau.UpperRightLimit.x.Should().Be(27);
             plateau.UpperRightLimit.y.Should().Be(89);
@@ -26,7 +26,7 @@ namespace LandRover.UnitTests.Infra.Repository
         public void LoadRover_ShouldCreateRoverObjectForAGivenStringList()
         {
             var stringList = new string[] { "13", "45", "W"};
-            var rover = landingPlanRepository.LoadRover(stringList);
+            var rover = _landingPlanRepository.LoadRover(stringList);
 
             rover.coordinate.x.Should().Be(13);
             rover.coordinate.y.Should().Be(45);
@@ -37,7 +37,7 @@ namespace LandRover.UnitTests.Infra.Repository
         public void LoadInstructions_ShouldCreateInstructionsObjectsForAGivenString()
         {
             var stringText = "LMMRM";
-            var instructions = landingPlanRepository.LoadInstructions(stringText);
+            var instructions = _landingPlanRepository.LoadInstructions(stringText);
             instructions.Should().HaveCount(5);
         }
 
@@ -53,7 +53,7 @@ namespace LandRover.UnitTests.Infra.Repository
                 "MMLMR"
             };
 
-            var plans = landingPlanRepository.LoadLandingPlans(stringList);
+            var plans = _landingPlanRepository.LoadLandingPlans(stringList);
 
             plans.plateau.Should().NotBeNull();
             plans.landingPlans.Should().HaveCount(2);
